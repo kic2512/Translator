@@ -1,9 +1,12 @@
 package com.example.kic.translator;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,5 +38,12 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View view) {
+        TextView myString = (TextView) findViewById(R.id.textView);
+        myString.setText("Change label !");
+        Intent second_activity = new Intent(MainActivity.this, SecondActivity.class);
+        startActivity(second_activity);
     }
 }
