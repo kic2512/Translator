@@ -4,5 +4,6 @@
     <string name="app_name">Translator</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="yandex_translate_URL">https://translate.yandex.net/api/v1.5/tr.json/translate</string>
+    <string name="yandex_translate_key">trnsl.1.1.20150217T101240Z.94ed0457947c725e.dfd4eac0e7d9b45dad578129dc354024e4ce3a69</string>
 </resources>

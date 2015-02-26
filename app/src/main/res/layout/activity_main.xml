@@ -1,57 +1,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@color/background_material_light">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/background_material_light"
+    android:id="@+id/layout"
+    android:padding="50dp"
+    android:clickable="false">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/translatedWordView"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:layout_below="@+id/initialWordText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:height="@dimen/abc_action_button_min_width_overflow_material" />
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:text="input your word here"
-        android:background="@color/background_material_light"
+        android:layout_height="50dp"
+        android:id="@+id/initialWordText"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:layout_marginTop="62dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/translatedWordView"
+        android:layout_alignStart="@+id/translatedWordView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:text="Translate"
-        android:id="@+id/button"
-        android:layout_marginTop="147dp"
+        android:id="@+id/translateButton"
         android:onClick="onClick"
-        android:singleLine="false"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:singleLine="true"
+        android:textSize="25dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignLeft="@+id/translatedWordView"
+        android:layout_alignStart="@+id/translatedWordView"
+        android:layout_marginBottom="71dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Second Activity"
         android:id="@+id/button3"
-        android:layout_below="@+id/button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="92dp"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button"
-        android:onClick="onClickSecondActivity" />
+        android:onClick="onClickSecondActivity"
+        android:singleLine="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

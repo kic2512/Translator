@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,17 +19,16 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class MainActivity extends ActionBarActivity {
-    final String URL_GET_TRANSLATE = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20150217T101240Z.94ed0457947c725e.dfd4eac0e7d9b45dad578129dc354024e4ce3a69";
     final String lang = "en-ru";
-    private TextView wordString = null;
-    private EditText inputWord = null;
+    private TextView translatedWord = null;
+    private EditText initialWord = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        wordString = (TextView) findViewById(R.id.textView);
-        inputWord = (EditText) findViewById(R.id.editText);
+        translatedWord = (TextView) findViewById(R.id.translatedWordView);
+        initialWord = (EditText) findViewById(R.id.initialWordText);
     }
 
 
@@ -57,12 +55,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onClick(View view) throws IOException, JSONException {
-
-        //wordString.setText("Change label !");
-
         GetTranslateFromURL getTranslateFromURL = new GetTranslateFromURL();
-        String word = inputWord.getText().toString();
-        String url_word_translate = URL_GET_TRANSLATE + "&" + "text=" + word + "&lang=" + lang;
+        String word = initialWord.getText().toString();
+        String url_word_translate = getString(R.string.yandex_translate_URL) +
+                                    "?key=" + getString(R.string.yandex_translate_key) +
+                                    "&text=" + word +
+                                    "&lang=" + lang;
         getTranslateFromURL.execute(url_word_translate);
     }
 
@@ -85,10 +83,8 @@ public class MainActivity extends ActionBarActivity {
             if (json != null)
                 try {
                     JSONArray translate_text_arr = json.getJSONArray("text");
-                    String translate_string = "";
-                    for(int i=0;i<translate_text_arr.length(); ++i){
-                        translate_string += translate_text_arr.getString(i);
-                    }
+                    String translate_string = translate_text_arr.get(0).toString();
+
                     publishProgress(translate_string);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -99,7 +95,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            wordString.setText(values[0]);
+            translatedWord.setText(values[0]);
         }
     }
 
