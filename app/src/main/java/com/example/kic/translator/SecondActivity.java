@@ -1,5 +1,6 @@
 package com.example.kic.translator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,7 @@ public class SecondActivity extends ActionBarActivity {
 
     public void onClick(View view) {
         Intent  main_activity = new Intent(SecondActivity.this, MainActivity.class);
-        startActivity(main_activity);
+        setResult(Activity.RESULT_OK, main_activity);
+        finish();
     }
 }
