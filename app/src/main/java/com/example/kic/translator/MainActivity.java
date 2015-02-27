@@ -1,6 +1,5 @@
 package com.example.kic.translator;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.kic.translator.utils.JsonParser;
@@ -19,16 +19,19 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class MainActivity extends ActionBarActivity {
-    final String lang = "en-ru";
-    private TextView translatedWord = null;
-    private EditText initialWord = null;
+    final String lang = "en-ru";                        // TODO
+    private TextView translatedWordView = null;
+    private EditText initialWordText = null;
+    private ProgressBar progressBar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        translatedWord = (TextView) findViewById(R.id.translatedWordView);
-        initialWord = (EditText) findViewById(R.id.initialWordText);
+        initialWordText = (EditText) findViewById(R.id.initialWordText);
+        translatedWordView = (TextView) findViewById(R.id.translatedWordView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 
@@ -56,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void onClick(View view) throws IOException, JSONException {
         GetTranslateFromURL getTranslateFromURL = new GetTranslateFromURL();
-        String word = initialWord.getText().toString();
+        String word = initialWordText.getText().toString();
         String url_word_translate = getString(R.string.yandex_translate_URL) +
                                     "?key=" + getString(R.string.yandex_translate_key) +
                                     "&text=" + word +
@@ -64,14 +67,10 @@ public class MainActivity extends ActionBarActivity {
         getTranslateFromURL.execute(url_word_translate);
     }
 
-    public void onClickSecondActivity(View view) {
-        Intent second_activity = new Intent(MainActivity.this, SecondActivity.class);
-        startActivity(second_activity);
-    }
-
-    public class GetTranslateFromURL extends AsyncTask<String,String,String> {
+    public class GetTranslateFromURL extends AsyncTask<String,Void,String> {
         @Override
         protected String doInBackground(String... URL) {
+            publishProgress();
             JSONObject json = null;
             try {
                 json = JsonParser.getJsonFromUrl(URL[0]);
@@ -82,20 +81,27 @@ public class MainActivity extends ActionBarActivity {
             }
             if (json != null)
                 try {
-                    JSONArray translate_text_arr = json.getJSONArray("text");
-                    String translate_string = translate_text_arr.get(0).toString();
+                    JSONArray jsonArray = json.getJSONArray("text");
+                    String translatedWord = jsonArray.get(0).toString();
+                    return translatedWord;
 
-                    publishProgress(translate_string);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            return null;
+            return "Oops... please, try again :)";
         }
 
         @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
-            translatedWord.setText(values[0]);
+        protected void onProgressUpdate(Void... v) {
+            super.onProgressUpdate(v);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String translatedWord) {
+            super.onPostExecute(translatedWord);
+            progressBar.setVisibility(View.INVISIBLE);
+            translatedWordView.setText(translatedWord);
         }
     }
 
