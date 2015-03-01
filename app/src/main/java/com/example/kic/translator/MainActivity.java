@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class MainActivity extends ActionBarActivity {
-    final String lang = "en-ru";                        // TODO
+    private String lang = null;                        // TODO
     private TextView translatedWordView = null;
     private EditText initialWordText = null;
     private ProgressBar progressBar = null;
@@ -33,8 +33,8 @@ public class MainActivity extends ActionBarActivity {
         translatedWordView = (TextView) findViewById(R.id.translatedWordView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        lang = getString(R.string.start_lang);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,6 +48,8 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.main_action_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivityForResult(intent, 1);
             return true;
         }
         if (id == R.id.main_action_about) {
@@ -57,6 +59,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null){
+            return;
+        }
+        lang = data.getStringExtra("lang");
     }
 
     public void onClick(View view) throws IOException, JSONException {
@@ -72,20 +83,17 @@ public class MainActivity extends ActionBarActivity {
     public class GetTranslateFromURL extends AsyncTask<String,Void,String> {
         @Override
         protected String doInBackground(String... URL) {
-            publishProgress();
             JSONObject json = null;
             try {
                 json = JsonParser.getJsonFromUrl(URL[0]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+                publishProgress();
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             if (json != null)
                 try {
                     JSONArray jsonArray = json.getJSONArray("text");
-                    String translatedWord = jsonArray.get(0).toString();
-                    return translatedWord;
+                    return jsonArray.get(0).toString();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -96,7 +104,6 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onProgressUpdate(Void... v) {
             super.onProgressUpdate(v);
-            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -104,6 +111,12 @@ public class MainActivity extends ActionBarActivity {
             super.onPostExecute(translatedWord);
             progressBar.setVisibility(View.INVISIBLE);
             translatedWordView.setText(translatedWord);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 

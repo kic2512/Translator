@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
-            android:label="Translator second activity" >
+            android:name=".SettingsActivity"
+            android:label="Settings" >
         </activity>
         <activity
             android:name=".AboutActivity"

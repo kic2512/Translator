@@ -34,11 +34,7 @@ public class JsonParser {
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
                 String jsonString = reader_to_string(rd);
                 json = new JSONObject(jsonString);
-            }
-            catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             finally {
