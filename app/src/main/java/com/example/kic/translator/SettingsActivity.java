@@ -16,7 +16,6 @@ public class SettingsActivity extends ActionBarActivity {
     private Spinner spinner_from = null;
     private Spinner spinner_to = null;
     private Button button_save = null;
-    private Button button_back = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +24,6 @@ public class SettingsActivity extends ActionBarActivity {
         spinner_from = (Spinner)findViewById(R.id.spinner_from);
         spinner_to = (Spinner)findViewById(R.id.spinner_to);
         button_save = (Button)findViewById(R.id.button_save_translate_lang);
-        button_back = (Button)findViewById(R.id.button_back);
 
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,16 +37,5 @@ public class SettingsActivity extends ActionBarActivity {
                 finish();
             }
         });
-
-        button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent  main_activity = new Intent(SettingsActivity.this, MainActivity.class);
-                main_activity.putExtra("lang", lang);
-                setResult(Activity.RESULT_OK, main_activity);
-                finish();
-            }
-        });
-
     }
 }
