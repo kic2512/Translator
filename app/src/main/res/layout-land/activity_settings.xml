@@ -15,7 +15,8 @@
         android:id="@+id/spinner_from"
         android:entries="@array/lang_array"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/textView4" />
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="false" />
 
     <Button
         android:layout_width="300dp"
@@ -26,7 +27,9 @@
         android:textSize="25dp"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/spinner_to"
+        android:layout_marginTop="25dp" />
 
     <Spinner
         android:layout_width="200dp"
@@ -34,30 +37,31 @@
         android:id="@+id/spinner_to"
         android:entries="@array/lang_array"
         android:background="@android:color/darker_gray"
-        android:layout_alignTop="@+id/spinner_from"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/textView5" />
 
     <TextView
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="From:"
         android:id="@+id/textView4"
         android:textColor="@android:color/background_light"
         android:textSize="30dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/spinner_from"
-        android:layout_alignStart="@+id/spinner_from" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="To:"
         android:id="@+id/textView5"
         android:textColor="@android:color/background_light"
         android:textSize="30dp"
-        android:layout_alignParentTop="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
         android:layout_alignLeft="@+id/spinner_to"
-        android:layout_alignStart="@+id/spinner_to"
-        android:layout_alignParentBottom="false" />
+        android:layout_alignStart="@+id/spinner_to" />
 </RelativeLayout>
