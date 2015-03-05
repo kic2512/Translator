@@ -24,7 +24,7 @@
         android:text="Save"
         android:id="@+id/button_save_translate_lang"
         android:background="@android:color/holo_orange_dark"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="false"
@@ -48,7 +48,7 @@
         android:text="From:"
         android:id="@+id/textView4"
         android:textColor="@android:color/background_light"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 
@@ -58,7 +58,7 @@
         android:text="To:"
         android:id="@+id/textView5"
         android:textColor="@android:color/background_light"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true"
