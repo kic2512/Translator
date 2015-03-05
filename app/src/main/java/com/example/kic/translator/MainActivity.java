@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class MainActivity extends ActionBarActivity {
     private String lang = null;                        // TODO
@@ -76,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
     public void onClick(View view) throws IOException, JSONException {
         GetTranslateFromURL getTranslateFromURL = new GetTranslateFromURL();
         String word = initialWordText.getText().toString();
+        word = URLEncoder.encode(word, "UTF-8");
         String url_word_translate = getString(R.string.yandex_translate_URL) +
                                     "?key=" + getString(R.string.yandex_translate_key) +
                                     "&text=" + word +
