@@ -51,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (id == R.id.main_action_settings) {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            intent.putExtra("lang", lang);
             startActivityForResult(intent, 1);
             return true;
         }
