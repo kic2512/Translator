@@ -12,14 +12,15 @@
     <string name="from_main_to_settings_param_name_lang">lang</string>
 
     <string-array name="lang_array">
-        <item>en</item>
         <item>be</item>
         <item>bg</item>
         <item>de</item>
+        <item>en</item>
+        <item>es</item>
+        <item>ru</item>
         <item>no</item>
         <item>pl</item>
         <item>pt</item>
-        <item>ru</item>
     </string-array>
 
     <string name="title_activity_settings">Settings</string>
