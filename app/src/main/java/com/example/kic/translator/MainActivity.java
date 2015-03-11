@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView translatedWordView = null;
     private EditText initialWordText = null;
     private ProgressBar progressBar = null;
+    private final int REQUEST_CODE_LANG = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.main_action_settings) {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             intent.putExtra("lang", lang);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, REQUEST_CODE_LANG);
             return true;
         }
         if (id == R.id.main_action_about) {
@@ -71,7 +72,12 @@ public class MainActivity extends ActionBarActivity {
         if (data == null){
             return;
         }
-        lang = data.getStringExtra("lang");
+        if (resultCode == RESULT_OK)
+            switch (requestCode) {
+                case REQUEST_CODE_LANG:
+                    lang = data.getStringExtra("lang");
+                // PLACE FOR OTHER ACTIVITY
+            }
     }
 
     public void onClick(View view) throws IOException, JSONException {
