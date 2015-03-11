@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class MainActivity extends ActionBarActivity {
@@ -27,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
     private EditText initialWordText = null;
     private ProgressBar progressBar = null;
     private final int REQUEST_CODE_LANG = 1;
+    private Button button_translate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,24 @@ public class MainActivity extends ActionBarActivity {
         progressBar.setVisibility(View.INVISIBLE);
         lang = getString(R.string.start_lang);
         translatedWordView.setMovementMethod(new ScrollingMovementMethod());
+        button_translate = (Button)findViewById(R.id.translateButton);
+        button_translate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetTranslateFromURL getTranslateFromURL = new GetTranslateFromURL();
+                String word = initialWordText.getText().toString();
+                try {
+                    word = URLEncoder.encode(word, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                String url_word_translate = getString(R.string.yandex_translate_URL) +
+                        "?key=" + getString(R.string.yandex_translate_key) +
+                        "&text=" + word +
+                        "&lang=" + lang;
+                getTranslateFromURL.execute(url_word_translate);
+            }
+        });
     }
 
     @Override
@@ -78,17 +99,6 @@ public class MainActivity extends ActionBarActivity {
                     lang = data.getStringExtra("lang");
                 // PLACE FOR OTHER ACTIVITY
             }
-    }
-
-    public void onClick(View view) throws IOException, JSONException {
-        GetTranslateFromURL getTranslateFromURL = new GetTranslateFromURL();
-        String word = initialWordText.getText().toString();
-        word = URLEncoder.encode(word, "UTF-8");
-        String url_word_translate = getString(R.string.yandex_translate_URL) +
-                                    "?key=" + getString(R.string.yandex_translate_key) +
-                                    "&text=" + word +
-                                    "&lang=" + lang;
-        getTranslateFromURL.execute(url_word_translate);
     }
 
     public class GetTranslateFromURL extends AsyncTask<String,Void,String> {

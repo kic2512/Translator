@@ -52,7 +52,6 @@
         android:layout_height="100dp"
         android:text="Translate"
         android:id="@+id/translateButton"
-        android:onClick="onClick"
         android:singleLine="true"
         android:textSize="25sp"
         android:background="@android:color/holo_orange_dark"
